@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter, HashRouter, Route, Routes} from 'react-router-dom'
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import Main from "../pages/main";
 import Sidebar from "../sidebar/sidebar";
 import NotFound from "../pages/not-found";
@@ -17,7 +17,7 @@ export default function RouterApp(props) {
     let route = guestRoute;
 
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="http://euglya.github.io/tsu-invest-app">
             <Sidebar component={route}/>
         </BrowserRouter>
     );
