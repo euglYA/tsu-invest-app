@@ -32,7 +32,6 @@ const getPageName = (pathname) => {
 export default function Sidebar({component, props}) {
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const location = useLocation();
-    console.log(location, navigation[`/tsu-invest-app` + location.pathname])
     return (
         <>
             <div>
