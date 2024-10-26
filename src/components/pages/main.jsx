@@ -8,7 +8,6 @@ import toast from 'react-hot-toast';
 const Capitals = (props) => {
     const {
         onSave = () => { },
-        disabled = false,
     } = props;
 
     const [numbers, setNumbers] = useState([]);
@@ -35,7 +34,7 @@ const Capitals = (props) => {
     };
 
     return (
-        <div className="w-full max-w-md min-w-sm p-4 border rounded-lg shadow-md h-fit">
+        <div className="w-full max-w-md min-w-sm p-4 border rounded-lg shadow-md h-fit relative">
             <h1 className="text-xl font-bold mb-4 text-gray-900/80">Инвестиции</h1>
 
             <div className="flex mb-4">
@@ -71,8 +70,8 @@ const Capitals = (props) => {
                 ))}
             </ul>
 
-            <div className='w-full flex items-center justify-center'>
-                {/* <button
+            {/* <div className='w-full flex items-center justify-center'>
+                <button
                     onClick={() => {
                         onSave(numbers)
                         // toast.success(`Данные о суммах инвестиций сохранены! Перерисуйте график, чтобы изменения вступили в силу.`)
@@ -81,8 +80,9 @@ const Capitals = (props) => {
                     className={clsx(`${numbers.length < 1 ? `hidden` : null}`, "bg-[#0070b9] hover:bg-[#0070b9]/80 transition-all ease-in-out duration-200 text-white px-4 py-2 rounded-lg font-semibold")}
                 >
                     {disabled ? `Сохранить` : `Далее`}
-                </button> */}
-            </div>
+                </button>
+            </div> */}
+            <p className={clsx(`${numbers.length > 1 && 'hidden'}`, 'absolute bottom-0 right-[1px] italic text-[13px] font-medium text-gray-500')}>должно быть более двух значений</p>
 
         </div>
     );
@@ -93,7 +93,7 @@ const Investors = (props) => {
         onSave = () => {},
         disabled = false,
     } = props;
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(undefined);
 
     return (
         <div className="w-full max-w-md min-w-sm p-4 border rounded-lg shadow-md max-h-52">
@@ -109,7 +109,7 @@ const Investors = (props) => {
                 />
             </div>
 
-            <div className='w-full flex items-center justify-center'>
+            <div className={clsx(`${(value == undefined || value === '') && 'hidden'}`, 'w-full flex items-center justify-center')}>
                 <button
                     onClick={() => {
                         if (value > 1) {
@@ -169,7 +169,7 @@ export default function Main() {
                                         dataKey="x"
                                         scale="log"
                                         domain={['auto', 'auto']}
-                                        tickFormatter={(tick) => tick.toFixed(0)}
+                                        tickFormatter={(tick) => Math.floor(tick)}
                                         type="number"
                                     />
                                     <YAxis />
