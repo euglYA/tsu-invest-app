@@ -33,14 +33,14 @@ const InvestAPI = {
         const numInvestors = sortedCapital.length;
         const top20PercentCount = Math.ceil(numInvestors * 0.2);
         const keyPlayers = sortedCapital.slice(0, top20PercentCount);
-        console.log("analyzeInvestorCapital: Ключевые игроки (20% с наибольшими капиталами):", keyPlayers);
+        // console.log("analyzeInvestorCapital: Ключевые игроки (20% с наибольшими капиталами):", keyPlayers);
 
         const predictedCapital = Array.from({ length: investors }, () => {
             let value = (1 - Math.random()) ** (- 1 / (alpha - 1))
             return minCapital * value;
         });
 
-        console.log("analyzeInvestorCapital: Прогноз капитала:", predictedCapital);
+        // console.log("analyzeInvestorCapital: Прогноз капитала:", predictedCapital);
         const density = this.calculateDensity(predictedCapital, investors);
 
         // console.log("analyzeInvestorCapital: density:", density);

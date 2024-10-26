@@ -2,8 +2,8 @@ import { PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import React, { useEffect, useState } from 'react';
 import InvestAPI from '../js-calculations/InvestAPI';
 import { Area, AreaChart, Bar, BarChart, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { Legend } from '@headlessui/react';
 import clsx from 'clsx';
+import toast from 'react-hot-toast';
 
 const Capitals = (props) => {
     const {
@@ -19,6 +19,7 @@ const Capitals = (props) => {
         const num = parseFloat(inputValue);
         if (num > 1) {
             setNumbers([...numbers, num]);
+            onSave([...numbers, num])
             setInputValue('');
         }
     };
@@ -26,6 +27,11 @@ const Capitals = (props) => {
     const removeNumber = (index) => {
         const newNumbers = numbers.filter((_, i) => i !== index);
         setNumbers(newNumbers);
+        if (newNumbers?.length === 0) {
+            onSave(undefined)
+        } else {
+            onSave(newNumbers)
+        }
     };
 
     return (
@@ -38,7 +44,7 @@ const Capitals = (props) => {
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     className="flex-grow border border-gray-300 rounded-lg p-2 mr-2"
-                    placeholder="Enter a number greater than 1"
+                    placeholder="Введите сумму инвестиции"
                     onKeyPress={(e) => e.key === 'Enter' && addNumber()}
                 />
                 <button
@@ -55,9 +61,9 @@ const Capitals = (props) => {
                         <span className='text-gray-500 font-semibold text-sm'>{num}</span>
                         <button
                             onClick={() => {
-                                if (!disabled) removeNumber(index);
+                                removeNumber(index);
                             }}
-                            className={clsx(`${disabled && "hidden"}`, "text-red-500 hover:text-red-700 transition-all ease-in-out duration-200")}
+                            className={clsx("text-red-500 hover:text-red-700 transition-all ease-in-out duration-200")}
                         >
                             <TrashIcon className='w-6 h-6'/>
                         </button>
@@ -66,14 +72,16 @@ const Capitals = (props) => {
             </ul>
 
             <div className='w-full flex items-center justify-center'>
-                <button
+                {/* <button
                     onClick={() => {
                         onSave(numbers)
+                        // toast.success(`Данные о суммах инвестиций сохранены! Перерисуйте график, чтобы изменения вступили в силу.`)
+                        toast.success(`Данные о суммах инвестиций сохранены! Перерисуйте график, чтобы изменения вступили в силу.`)
                     }}
-                    className={clsx(`${disabled && "hidden"}`, "bg-[#0070b9] hover:bg-[#0070b9]/80 transition-all ease-in-out duration-200 text-white px-4 py-2 rounded-lg font-semibold")}
+                    className={clsx(`${numbers.length < 1 ? `hidden` : null}`, "bg-[#0070b9] hover:bg-[#0070b9]/80 transition-all ease-in-out duration-200 text-white px-4 py-2 rounded-lg font-semibold")}
                 >
-                    Далее
-                </button>
+                    {disabled ? `Сохранить` : `Далее`}
+                </button> */}
             </div>
 
         </div>
@@ -97,14 +105,16 @@ const Investors = (props) => {
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                     className="flex-grow border border-gray-300 rounded-lg p-2 mr-2"
-                    placeholder="Enter a number greater than 1"
+                    placeholder="Введите количество инвесторов"
                 />
             </div>
 
             <div className='w-full flex items-center justify-center'>
                 <button
                     onClick={() => {
-                        onSave(value)
+                        if (value > 1) {
+                            onSave(value)
+                        }
                     }}
                     className={clsx("bg-[#0070b9] hover:bg-[#0070b9]/80 transition-all ease-in-out duration-200 text-white px-4 py-2 rounded-lg font-semibold")}
 
@@ -123,55 +133,77 @@ export default function Main() {
     return (
         <div>
             <h1 className='text-gray-900/80 text-3xl font-semibold'>Главная</h1>
-            <div className='flex w-full gap-6 w-xl mx-auto mt-8 gap-y-8'>
-                <Capitals disabled={chartData?.capitals !== undefined} onSave={(value) => {
-                    setChartData({...chartData, capitals: value});
-                }}/>
-                {chartData?.capitals !== undefined && (
-                    <Investors disabled={chartData?.investors !== undefined} onSave={(value) => {
-                        setChartData({...chartData, investors: value});
-                        let obj = InvestAPI.analyzeInvestorCapital(chartData?.capitals, +value);
-                        setCoordinates(obj?.density)
-                        obj = obj?.keyPlayers?.map((item, index) => {
-                            return {
-                                value: item,
-                                index: index
-                            }
-                        })
-                        setKeyPlayers(obj)
+            <div className='flex w-full gap-6 w-xl mx-auto mt-8 gap-y-8 flex-col'>
+                <div className='w-full flex gap-6 justify-start max-lg:flex-col max-lg:items-center'>
+                    <Capitals disabled={chartData?.capitals !== undefined} onSave={(value) => {
+                        setChartData({...chartData, capitals: value});
+                        if (chartData?.capitals === undefined) {
+                            setCoordinates(undefined)
+                        }
                     }}/>
-                    )
-                }
+                    {chartData?.capitals !== undefined && chartData?.capitals.length > 1 && (
+                        <Investors disabled={chartData?.investors !== undefined} onSave={(value) => {
+                            setChartData({...chartData, investors: value});
+                            let obj = InvestAPI.analyzeInvestorCapital(chartData?.capitals, +value);
+                            setCoordinates(obj?.density)
+                            obj = obj?.keyPlayers?.map((item, index) => {
+                                return {
+                                    value: item,
+                                    index: index
+                                }
+                            })
+                            setKeyPlayers(obj)
+                        }}/>
+                        )
+                    }
+                </div>
 
-                {coordinates && (
-                    <div>
-                        <ResponsiveContainer width={800} height={500}>
-                            <AreaChart data={coordinates}>
-                                <XAxis
-                                    dataKey="x"
-                                    scale="log"
-                                    domain={['auto', 'auto']}
-                                    tickFormatter={(tick) => tick.toFixed(0)}
-                                    type="number"
-                                />
-                                <YAxis />
-                                <Tooltip  />
-                                <Area type="monotone" dataKey="y" stroke="orange" fill="orange" fillOpacity={0.7} />
-                            </AreaChart>
-                        </ResponsiveContainer>
-                        <ResponsiveContainer width={800} height={500}>
+
+                {coordinates && chartData?.capitals && (
+                    <div className='flex gap-6 justify-start items-start max-xl:flex-col max-xl:items-center'>
+                        <div className='w-full max-w-2xl border shadow-md rounded-lg pr-4 py-4'>
+                            <p className='text-center text-xl font-bold text-gray-900/80 mb-4'>График ***</p>
+                            <ResponsiveContainer width='100%' height={300}>
+                                <AreaChart data={coordinates}>
+                                    <XAxis
+                                        dataKey="x"
+                                        scale="log"
+                                        domain={['auto', 'auto']}
+                                        tickFormatter={(tick) => tick.toFixed(0)}
+                                        type="number"
+                                    />
+                                    <YAxis />
+                                    <Tooltip  />
+                                    <Area type="monotone" dataKey="y" stroke="orange" fill="orange" fillOpacity={0.7} />
+                                </AreaChart>
+                            </ResponsiveContainer>
+                        </div>
+
+                        <div className='grid grid-cols-1 border rounded-lg shadow-md py-3 px-6'>
+                            <p className='text-center text-lg font-bold text-gray-900/80 mb-4'>Ключевые игроки (20% с наибольшими капиталами):</p>
+                            {keyPlayers?.map((item, index) => {
+                                return (
+                                    <div key={index} className='border-t py-2'>
+                                        <p className='text-md text-gray-900/80'>Инвестор{` № ${index + 1} - `}<span className='font-semibold'>{item?.value}</span></p>
+                                    </div>
+                                );
+                            })
+
+                            }
+                        </div>
+                        {/* <ResponsiveContainer width={300} height={200}>
                             <BarChart data={keyPlayers}>
                                 <XAxis
                                     dataKey="index"
-                                    domain={['auto', 'auto']}
-                                    tickFormatter={(tick) => tick.toFixed(0)}
-                                    type="number"
+                                    // domain={['auto', 'auto']}
+                                    // tickFormatter={(tick) => tick.toFixed(0)}
+                                    // type="number"
                                 />
                                 <YAxis />
-                                <Tooltip  />
-                                <Bar type="monotone" dataKey="y" stroke="orange" fill="orange" fillOpacity={0.7} />
+                                <Bar dataKey="value" fill="blue" />
+                                <Tooltip formatter={(value) => [`Вложение: ${value}`]}/>
                             </BarChart>
-                        </ResponsiveContainer>
+                        </ResponsiveContainer> */}
                     </div>
 
                 )}

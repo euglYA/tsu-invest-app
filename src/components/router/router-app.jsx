@@ -17,7 +17,7 @@ export default function RouterApp(props) {
     let route = guestRoute;
 
     return (
-        <BrowserRouter basename="http://euglya.github.io/tsu-invest-app">
+        <BrowserRouter basename="/tsu-invest-app">
             <Sidebar component={route}/>
         </BrowserRouter>
     );

@@ -16,13 +16,23 @@ import clsx from 'clsx'
 import { useLocation } from 'react-router-dom'
 
 const navigation = [
-  { name: 'Главная', href: '/', icon: HomeIcon},
+  { name: 'Главная', href: '/tsu-invest-app/', icon: HomeIcon},
 //   { name: 'Календарь', href: '#', icon: CalendarIcon, current: false },
 ]
+
+const getPageName = (pathname) => {
+    const pageName = navigation?.map((item) => {
+        if  (item.href === pathname) {
+            return item?.name;
+        }
+    }) || '';
+    return pageName
+}
 
 export default function Sidebar({component, props}) {
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const location = useLocation();
+    console.log(location, navigation[`/tsu-invest-app` + location.pathname])
     return (
         <>
             <div>
@@ -103,15 +113,15 @@ export default function Sidebar({component, props}) {
                                     ))}
                                 </ul>
                                 </li>
-                                <li className="mt-auto mb-2">
+                                {/* <li className="mt-auto mb-2">
                                     <a
-                                        href='/contacts'
+                                        href='/tsu-invest-app/contacts'
                                         className={clsx(`${false ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`, "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6")}
                                     >
                                         <PhoneIcon aria-hidden="true" className="h-6 w-6 shrink-0" />
                                         Контакты
                                     </a>
-                                </li>
+                                </li> */}
                             </ul>
                         </nav>
                     </div>
@@ -122,7 +132,7 @@ export default function Sidebar({component, props}) {
                         <span className="sr-only">Open sidebar</span>
                         <Bars3Icon aria-hidden="true" className="h-6 w-6" />
                     </button>
-                    <div className="flex-1 text-sm font-semibold leading-6 text-white">{navigation[location.pathname] ? navigation[location.pathname].name : 'URL not Found'}</div>
+                    <div className="flex-1 text-sm font-semibold leading-6 text-white">{getPageName(`/tsu-invest-app` + location.pathname) ? getPageName(`/tsu-invest-app` + location.pathname) : 'URL not Found'}</div>
 
                 </div>
 
