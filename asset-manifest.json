@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/tsu-invest-app/static/css/main.fd2f68d8.css",
+    "main.js": "/tsu-invest-app/static/js/main.766cd963.js",
+    "index.html": "/tsu-invest-app/index.html",
+    "main.fd2f68d8.css.map": "/tsu-invest-app/static/css/main.fd2f68d8.css.map",
+    "main.766cd963.js.map": "/tsu-invest-app/static/js/main.766cd963.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fd2f68d8.css",
+    "static/js/main.766cd963.js"
+  ]
+}
