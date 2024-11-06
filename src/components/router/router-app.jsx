@@ -4,10 +4,12 @@ import Main from "../pages/main";
 import Sidebar from "../sidebar/sidebar";
 import NotFound from "../pages/not-found";
 import Contacts from "../pages/contacts";
+import History from "../pages/history";
 
 const guestRoute = (
     <Routes>
         <Route path='/' element={<Main/>}/>
+        <Route path='/history' element={<History/>} />
         <Route path='/contacts' element={<Contacts/>}/>
         <Route path='*' element={<NotFound/>}/>
     </Routes>

@@ -11,13 +11,16 @@ import {
   PhoneIcon,
   UsersIcon,
   XMarkIcon,
+  ClockIcon,
+  PresentationChartLineIcon
 } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 import { useLocation } from 'react-router-dom'
 
 const navigation = [
   { name: 'Главная', href: '/tsu-invest-app/', icon: HomeIcon},
-//   { name: 'Календарь', href: '#', icon: CalendarIcon, current: false },
+  { name: 'Анализ', href: '/tsu-invest-app/analyze', icon: PresentationChartLineIcon},
+  { name: 'История', href: '/tsu-invest-app/history', icon: ClockIcon},
 ]
 
 const getPageName = (pathname) => {
