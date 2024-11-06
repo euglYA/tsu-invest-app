@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/tsu-invest-app/static/css/main.86e12cf5.css",
-    "main.js": "/tsu-invest-app/static/js/main.aa73d9ff.js",
+    "main.css": "/tsu-invest-app/static/css/main.11f7fed1.css",
+    "main.js": "/tsu-invest-app/static/js/main.5afe8264.js",
     "index.html": "/tsu-invest-app/index.html",
-    "main.86e12cf5.css.map": "/tsu-invest-app/static/css/main.86e12cf5.css.map",
-    "main.aa73d9ff.js.map": "/tsu-invest-app/static/js/main.aa73d9ff.js.map"
+    "main.11f7fed1.css.map": "/tsu-invest-app/static/css/main.11f7fed1.css.map",
+    "main.5afe8264.js.map": "/tsu-invest-app/static/js/main.5afe8264.js.map"
   },
   "entrypoints": [
-    "static/css/main.86e12cf5.css",
-    "static/js/main.aa73d9ff.js"
+    "static/css/main.11f7fed1.css",
+    "static/js/main.5afe8264.js"
   ]
 }
