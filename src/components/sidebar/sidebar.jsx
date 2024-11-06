@@ -15,12 +15,12 @@ import {
   PresentationChartLineIcon
 } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const navigation = [
-  { name: 'Главная', href: '/tsu-invest-app/', icon: HomeIcon},
-  { name: 'Анализ', href: '/tsu-invest-app/analyze', icon: PresentationChartLineIcon},
-  { name: 'История', href: '/tsu-invest-app/history', icon: ClockIcon},
+  { name: 'Главная', href: '/', icon: HomeIcon},
+  { name: 'Анализ', href: '/analyze', icon: PresentationChartLineIcon},
+  { name: 'История', href: '/history', icon: ClockIcon},
 ]
 
 const getPageName = (pathname) => {
@@ -35,6 +35,7 @@ const getPageName = (pathname) => {
 export default function Sidebar({component, props}) {
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const location = useLocation();
+    const navigate = useNavigate();
     return (
         <>
             <div>
@@ -71,13 +72,13 @@ export default function Sidebar({component, props}) {
                                     <ul role="list" className="-mx-2 space-y-1">
                                         {navigation.map((item) => (
                                         <li key={item.name}>
-                                            <a
-                                            href={item.href}
+                                            <button
+                                            onClick={() => {navigate(item.href); setSidebarOpen(false)}}
                                             className={clsx(`${item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'} group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6`)}
                                             >
                                             <item.icon aria-hidden="true" className="h-6 w-6 shrink-0" />
                                             {item.name}
-                                            </a>
+                                            </button>
                                         </li>
                                         ))}
                                     </ul>
@@ -104,13 +105,13 @@ export default function Sidebar({component, props}) {
                                 <ul role="list" className="-mx-2 space-y-1">
                                     {navigation.map((item) => (
                                     <li key={item.name}>
-                                        <a
-                                        href={item.href}
+                                        <button 
+                                        onClick={() => {navigate(item.href); setSidebarOpen(false)}}
                                         className={clsx(`${navigation[location.pathname]?.name === item?.name ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`, "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6")}
                                         >
                                         <item.icon aria-hidden="true" className="h-6 w-6 shrink-0" />
                                         {item.name}
-                                        </a>
+                                        </button>
                                     </li>
                                     ))}
                                 </ul>

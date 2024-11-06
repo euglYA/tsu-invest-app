@@ -96,7 +96,7 @@ export const Capitals = (props) => {
                         className="transition-colors ease-in-out mt-3 inline-flex w-full items-center justify-center rounded-md bg-blue-500 px-8 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 sm:mt-0 sm:w-auto"
                         onClick={() => {
                             if (numbers == undefined || numbers?.length < 2) {
-                                toast.error(`Вы волжны ввести два и более значения`)
+                                toast.error(`Вы должны ввести два и более значения`)
                             } else {
                                 onSave(numbers)
                             }
