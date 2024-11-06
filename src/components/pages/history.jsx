@@ -18,7 +18,7 @@ export default function History() {
 
     return (
         <div className="px-4 py-2">
-            <h1 className="text-4xl font-semibold">История</h1>
+            <h1 className="text-4xl font-semibold text-gray-900/80 mb-6">История</h1>
             <div className="my-4 w-full">
                 <List data={data}/>
             </div>

@@ -138,7 +138,7 @@ export default function Sidebar({component, props}) {
 
                 </div>
 
-                <main className="py-10 lg:pl-72">
+                <main className="py-10 lg:pl-72 bg-gray-50 min-h-screen">
                     <div className="px-4 sm:px-6 lg:px-8">{component}</div>
                 </main>
             </div>
