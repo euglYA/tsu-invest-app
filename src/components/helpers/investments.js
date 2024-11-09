@@ -28,16 +28,16 @@ const InvestAPI = {
         return x_values.map((x, index) => ({ x, y: probabilities[index] }));
     },
 
-    analyzeInvestorCapital(capital, investors, probability_threshold = 0.001) {
+    analyzeInvestorCapital(capital, probability_threshold = 0.001) {
         const filteredCapital = capital.filter(c => c > 0);
         const minCapital = Math.min(...filteredCapital);
         const alpha = 1 + filteredCapital.length / filteredCapital.reduce((acc, c) => acc + Math.log(c / minCapital), 0);
-        // console.log("analyzeInvestorCapital: Оценка показателя степени α:", alpha);
+        console.log("analyzeInvestorCapital: Оценка показателя степени α:", alpha);
         const sortedCapital = filteredCapital.sort((a, b) => b - a);
         const numInvestors = sortedCapital.length;
         const top20PercentCount = Math.ceil(numInvestors * 0.2);
         const keyPlayers = sortedCapital.slice(0, top20PercentCount);
-        // console.log("analyzeInvestorCapital: Ключевые игроки (20% с наибольшими капиталами):", keyPlayers);
+        console.log("analyzeInvestorCapital: Ключевые игроки (20% с наибольшими капиталами):", keyPlayers);
 
         // const predictedCapital = Array.from({ length: investors }, () => {
         //     let value = (1 - Math.random()) ** (- 1 / (alpha - 1))

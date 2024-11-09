@@ -24,7 +24,8 @@ export default function List(props) {
                 return (
                     <button 
                         key={index} 
-                        className={clsx(`bg-${Recommendations.getColorByAlpha(item?.alpha)}`, "w-full max-w-3xl h-28 shadow-sm rounded-lg font-medium px-4 py-2 text-gray-900/80 relative hover:shadow-xl transition-all ease-in-out duration-300")}
+                        className={clsx("w-full max-w-3xl h-28 shadow-sm rounded-lg font-medium px-4 py-2 text-gray-900/80 relative hover:shadow-xl transition-all ease-in-out duration-300")}
+                        style={{backgroundColor: item?.alpha > 3 ? "#86efac" : item?.alpha > 2 ? "#fdba74" : "#fca5a5",}}
                         onClick={() => {setModalInfo(item)}}    
                     >
                         

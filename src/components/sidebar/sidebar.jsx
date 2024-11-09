@@ -135,7 +135,7 @@ export default function Sidebar({component, props}) {
                         <span className="sr-only">Open sidebar</span>
                         <Bars3Icon aria-hidden="true" className="h-6 w-6" />
                     </button>
-                    <div className="flex-1 text-sm font-semibold leading-6 text-white">{getPageName(`/tsu-invest-app` + location.pathname) ? getPageName(`/tsu-invest-app` + location.pathname) : 'URL not Found'}</div>
+                    <div className="flex-1 text-sm font-semibold leading-6 text-white">{getPageName(location.pathname) ? getPageName(location.pathname) : 'URL not Found'}</div>
 
                 </div>
 

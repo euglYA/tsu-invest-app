@@ -38,7 +38,7 @@ export const Capitals = (props) => {
             <p className="mb-4 text-gray-900/80 text-sm font-semibold">Введите суммы капиталов для анализа (должно быть два и более значений)</p>
 
             <div className="w-full flex items-center justify-center gap-4 mb-6">
-                <p>В ручную</p>
+                <p>Вручную</p>
                 <Switch
                     checked={enabled}
                     onChange={setEnabled}
@@ -110,17 +110,11 @@ export const Capitals = (props) => {
 
             <div className={clsx(enabled == false && "hidden")}>
                 <CSVReader onDataParsed={(values) => {
-                    let arr = [];
-                    let keys = Object.keys(values[0]);
-                    for (let value of values) {
-                        let vl = +value[keys[0]];
-                        vl = Math.abs(vl)
-                        if (vl  > 1 && vl < 100000000) {
-                            arr.push(vl)
-                        }
+                    if (values?.length <= 2) {
+                        toast.error(`В файле должно быть два и более подходящих значений (положительных)`)
+                    } else {
+                        onSave(values)
                     }
-                    console.log(arr)
-                    onSave(arr)
                 }}/>
             </div>
 

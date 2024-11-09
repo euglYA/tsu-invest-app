@@ -5,6 +5,7 @@ import { Investors } from "../analyze/investors";
 import Results from "../analyze/results";
 import InvestAPI from "../helpers/investments";
 import IndexedDB from "../../api/IndexedDB";
+import toast from "react-hot-toast";
 
 
 export default function Analyze(props) {
@@ -28,9 +29,13 @@ export default function Analyze(props) {
                                         let obj = InvestAPI.analyzeInvestorCapital(value, 0.0001);
                                         IndexedDB.addItem('investment', {
                                             date: new Date(),
-                                            capitals,
+                                            capitals: value,
                                             ...obj
                                         })
+                                        if (obj?.alpha < 1) {
+                                            toast.error("Анализ таких значений невозможен")
+                                            return;
+                                        } 
                                         setData({...obj, capitals: value})
                                     }}/>
                                 </div>
