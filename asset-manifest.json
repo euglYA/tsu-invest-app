@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/tsu-invest-app/static/css/main.dabee76d.css",
-    "main.js": "/tsu-invest-app/static/js/main.c1da4935.js",
+    "main.css": "/tsu-invest-app/static/css/main.53077de7.css",
+    "main.js": "/tsu-invest-app/static/js/main.c7633fa7.js",
     "static/js/213.0b78fe08.chunk.js": "/tsu-invest-app/static/js/213.0b78fe08.chunk.js",
     "static/js/732.5cbe61e7.chunk.js": "/tsu-invest-app/static/js/732.5cbe61e7.chunk.js",
     "index.html": "/tsu-invest-app/index.html",
-    "main.dabee76d.css.map": "/tsu-invest-app/static/css/main.dabee76d.css.map",
-    "main.c1da4935.js.map": "/tsu-invest-app/static/js/main.c1da4935.js.map",
+    "main.53077de7.css.map": "/tsu-invest-app/static/css/main.53077de7.css.map",
+    "main.c7633fa7.js.map": "/tsu-invest-app/static/js/main.c7633fa7.js.map",
     "213.0b78fe08.chunk.js.map": "/tsu-invest-app/static/js/213.0b78fe08.chunk.js.map",
     "732.5cbe61e7.chunk.js.map": "/tsu-invest-app/static/js/732.5cbe61e7.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.dabee76d.css",
-    "static/js/main.c1da4935.js"
+    "static/css/main.53077de7.css",
+    "static/js/main.c7633fa7.js"
   ]
 }
