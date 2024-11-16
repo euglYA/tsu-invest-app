@@ -60,30 +60,30 @@ export default function Sidebar({component, props}) {
                             </TransitionChild>
                             <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-2 ring-1 ring-white/10">
                                 <div className="flex h-16 shrink-0 items-center">
-                                <img
-                                    alt="TSU"
-                                    src="favicon.jpg"
-                                    className="h-8 w-auto"
-                                />
+                                    <img
+                                        alt="TSU"
+                                        src="favicon.jpg"
+                                        className="h-8 w-auto"
+                                    />
                                 </div>
                                 <nav className="flex flex-1 flex-col">
-                                <ul role="list" className="flex flex-1 flex-col gap-y-7">
-                                    <li>
-                                    <ul role="list" className="-mx-2 space-y-1">
-                                        {navigation.map((item) => (
-                                        <li key={item.name}>
-                                            <button
-                                            onClick={() => {navigate(item.href); setSidebarOpen(false)}}
-                                            className={clsx(`${item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'} group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6`)}
-                                            >
-                                            <item.icon aria-hidden="true" className="h-6 w-6 shrink-0" />
-                                            {item.name}
-                                            </button>
+                                    <ul role="list" className="flex flex-1 flex-col gap-y-7">
+                                        <li>
+                                            <ul role="list" className="-mx-2 space-y-1">
+                                                {navigation.map((item) => (
+                                                    <li key={item.name}>
+                                                        <button
+                                                            onClick={() => {navigate(item.href); setSidebarOpen(false)}}
+                                                            className={clsx(`${item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'} group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6`)}
+                                                        >
+                                                            <item.icon aria-hidden="true" className="h-6 w-6 shrink-0" />
+                                                            {item.name}
+                                                        </button>
+                                                    </li>
+                                                ))}
+                                            </ul>
                                         </li>
-                                        ))}
                                     </ul>
-                                    </li>
-                                </ul>
                                 </nav>
                             </div>
                         </DialogPanel>
@@ -102,29 +102,20 @@ export default function Sidebar({component, props}) {
                         <nav className="flex flex-1 flex-col">
                             <ul role="list" className="flex flex-1 flex-col gap-y-7">
                                 <li>
-                                <ul role="list" className="-mx-2 space-y-1">
-                                    {navigation.map((item) => (
-                                    <li key={item.name}>
-                                        <button 
-                                        onClick={() => {navigate(item.href); setSidebarOpen(false)}}
-                                        className={clsx(`${navigation[location.pathname]?.name === item?.name ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`, "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6")}
-                                        >
-                                        <item.icon aria-hidden="true" className="h-6 w-6 shrink-0" />
-                                        {item.name}
-                                        </button>
-                                    </li>
-                                    ))}
-                                </ul>
+                                    <ul role="list" className="-mx-2 space-y-1">
+                                        {navigation.map((item) => (
+                                        <li key={item.name} className=''>
+                                            <button 
+                                                onClick={() => {navigate(item.href); setSidebarOpen(false)}}
+                                                className={clsx(`${location.pathname === item?.href ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`, "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 w-full")}
+                                            >
+                                                <item.icon aria-hidden="true" className="h-6 w-6 shrink-0" />
+                                                {item.name}
+                                            </button>
+                                        </li>
+                                        ))}
+                                    </ul>
                                 </li>
-                                {/* <li className="mt-auto mb-2">
-                                    <a
-                                        href='/tsu-invest-app/contacts'
-                                        className={clsx(`${false ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`, "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6")}
-                                    >
-                                        <PhoneIcon aria-hidden="true" className="h-6 w-6 shrink-0" />
-                                        Контакты
-                                    </a>
-                                </li> */}
                             </ul>
                         </nav>
                     </div>

@@ -18,11 +18,11 @@ export const Capitals = (props) => {
 
     const addNumber = () => {
         const num = parseFloat(inputValue);
-        if (num > 1 && num < 100000000) {
+        if (num > 0 && num < 100000000) {
             setNumbers([...numbers, num]);
             setInputValue('');
         } else {
-            toast.error(`Значение должно быть больше одного и меньше 100 миллионов`)
+            toast.error(`Значение должно быть в диапазоне (1 ⩽ x ⩽ 100000000)`)
         }
     };
 
@@ -110,8 +110,10 @@ export const Capitals = (props) => {
 
             <div className={clsx(enabled == false && "hidden")}>
                 <CSVReader onDataParsed={(values) => {
-                    if (values?.length <= 2) {
-                        toast.error(`В файле должно быть два и более подходящих значений (положительных)`)
+                    if (values?.errors > 0) {
+                        toast.error(`Файл содержит "${values?.errors}" значений вне допустимого диапазона (1 ⩽ x ⩽ 100000000)`)
+                    } else if (values?.length <= 2) {
+                        toast.error(`В файле должно быть два и более значений`)
                     } else {
                         onSave(values)
                     }

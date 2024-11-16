@@ -1,5 +1,4 @@
 import Papa from 'papaparse';
-
 export const CSVReader = ({ onDataParsed }) => {
     // const [fileName, setFileName] = useState(null);
 
@@ -13,13 +12,25 @@ export const CSVReader = ({ onDataParsed }) => {
                 complete: (result) => {
                     let data = result.data;
                     let key = (Object.keys(data[0]))[0];
-
-                    data = data.map((item) => {
-                        if (+item[key] > 1 && +item[key] < 100000000) {
-                            return +item[key];
+                    let arr = [];
+                    let errors = 0;
+                    for (let item of data) {
+                        if (item[key] == undefined || item[key] == null || item[key] == "" && !(typeof item[key] == "number")) {
+                            continue;
                         }
-                    })
-                    onDataParsed(data);
+                        if (+item[key] > 0 && +item[key] < 100000000) {
+                            arr.push(+item[key]) 
+                        } else {
+                            errors = errors + 1
+                        }
+                    }
+
+                    if (errors == 0) {
+                        onDataParsed(arr);
+                    } else {
+                        event.target.value = '';
+                        onDataParsed({errors})
+                    }
                 },
                 error: (error) => {
                     console.error("Ошибка парсинга CSV:", error);
